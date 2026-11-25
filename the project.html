@@ -1,0 +1,331 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean the City</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #164e63);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game {
+            width: 100%;
+            max-width: 600px;
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 35px #0005;
+        }
+
+        h1 {
+            color: #4ade80;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        .city-image {
+            font-size: 85px;
+            background: #334155;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .level {
+            color: #4ade80;
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .progress-bg {
+            width: 100%;
+            height: 25px;
+            background: #475569;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background: #ef4444;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .status {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .clean-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: #22c55e;
+            color: #052e16;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .clean-button:hover {
+            background: #4ade80;
+            transform: scale(1.02);
+        }
+
+        .clean-button:active {
+            transform: scale(0.97);
+        }
+
+        .clean-button:disabled {
+            background: #64748b;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .message {
+            min-height: 48px;
+            margin-top: 20px;
+            color: #4ade80;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        .reset-button {
+            margin-top: 10px;
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid #94a3b8;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background: #334155;
+        }
+
+        @media (max-width: 480px) {
+            .game {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .city-image {
+                font-size: 65px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game">
+
+        <h1>🌍 Clean the City</h1>
+
+        <p class="description">
+            Спаси города от мусора!
+            Нажимай Clean и сделай мир чище.
+        </p>
+
+        <div class="city-image" id="cityImage">🏙️🗑️</div>
+
+        <h2 id="cityName">Астана</h2>
+
+        <p class="level" id="levelText">Уровень 1</p>
+
+        <div class="stats">
+            <span>🗑️ Осталось мусора</span>
+            <span id="trashText">100 / 100</span>
+        </div>
+
+        <div
+            class="progress-bg"
+            role="progressbar"
+            aria-label="Уровень загрязнения города"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="100"
+            id="progressContainer"
+        >
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <p class="status" id="statusText">
+            Загрязнение: 100%
+        </p>
+
+        <button class="clean-button" id="cleanButton" onclick="cleanCity()">
+            🧹 Clean
+        </button>
+
+        <p class="message" id="message">
+            Каждый клик убирает немного мусора!
+        </p>
+
+        <button class="reset-button" onclick="restartGame()">
+            🔄 Начать заново
+        </button>
+
+    </div>
+
+    <script>
+        const cities = [
+            { name: "Астана", image: "🏙️🗑️" },
+            { name: "Алматы", image: "🏔️🗑️" },
+            { name: "Токио", image: "🗼🗑️" },
+            { name: "Париж", image: "🗼🌳🗑️" },
+            { name: "Нью-Йорк", image: "🌆🗑️" },
+            { name: "Лондон", image: "🎡🗑️" },
+            { name: "Дубай", image: "🏙️🌴🗑️" },
+            { name: "Сеул", image: "🌃🗑️" }
+        ];
+
+        let level = 1;
+        let totalTrash = 100;
+        let trashLeft = totalTrash;
+
+        function getCity() {
+            // После последнего города список начинается заново.
+            return cities[(level - 1) % cities.length];
+        }
+
+        function updateGame() {
+            const city = getCity();
+            const percent = (trashLeft / totalTrash) * 100;
+
+            document.getElementById("cityName").textContent =
+                city.name;
+
+            document.getElementById("cityImage").textContent =
+                city.image;
+
+            document.getElementById("levelText").textContent =
+                "Уровень " + level;
+
+            document.getElementById("trashText").textContent =
+                trashLeft + " / " + totalTrash;
+
+            document.getElementById("progressBar").style.width =
+                percent + "%";
+
+            document.getElementById("progressContainer")
+                .setAttribute("aria-valuenow", percent);
+
+            document.getElementById("statusText").textContent =
+                "Загрязнение: " + Math.round(percent) + "%";
+
+            const bar = document.getElementById("progressBar");
+
+            if (percent > 60) {
+                bar.style.background = "#ef4444";
+            } else if (percent > 30) {
+                bar.style.background = "#facc15";
+            } else {
+                bar.style.background = "#22c55e";
+            }
+
+            document.getElementById("cleanButton").disabled =
+                trashLeft === 0;
+        }
+
+        function cleanCity() {
+            if (trashLeft <= 0) {
+                return;
+            }
+
+            trashLeft--;
+
+            if (trashLeft === 0) {
+                updateGame();
+
+                document.getElementById("message").textContent =
+                    "🎉 " + getCity().name +
+                    " полностью очищен! Переход на следующий уровень...";
+
+                document.getElementById("cleanButton").disabled = true;
+
+                // Небольшая пауза перед следующим уровнем.
+                setTimeout(() => {
+                    level++;
+
+                    // На каждом уровне мусора становится на 50 больше.
+                    totalTrash = 100 + (level - 1) * 50;
+                    trashLeft = totalTrash;
+
+                    updateGame();
+
+                    document.getElementById("message").textContent =
+                        "🌟 Новый город! Теперь нужно убрать " +
+                        totalTrash + " единиц мусора.";
+                }, 1500);
+
+                return;
+            }
+
+            document.getElementById("message").textContent =
+                "Отличная работа! Продолжай убирать мусор 💚";
+
+            updateGame();
+        }
+
+        function restartGame() {
+            level = 1;
+            totalTrash = 100;
+            trashLeft = totalTrash;
+
+            updateGame();
+
+            document.getElementById("message").textContent =
+                "Новая игра началась! Очисти Астану 🌍";
+        }
+
+        updateGame();
+    </script>
+
+</body>
+</html>
+```

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/posts',{
+            method:"POST",
+            headers:{
+            'cotent-type': "aplication/json"
+            },
+            body:JSON.srtingify({
+                title:"hello",
+                body:"foo",
+                userID:198,
+            })
+        })
+        .then(Response => Response.json)
+        .then(data => console.log(data))
+       .catch(error => console.error("here is error"));
+    </script>
+</body>
+</html>

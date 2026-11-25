@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body{
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .h1{
+            margin-bottom: 20px;
+        }
+        .form{
+            display: flex;
+            flex-direction: column;
+        }
+        .input,select,button{
+            padding: 10px;
+            margin: 5px 0;
+            border:1px solid #ccc;
+            border-radius: 3px;
+        }
+.button{
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+.result{
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>){
+            const form=document.getElementById('converter-form');
+            const amountinput=document.getElementById('amount');
+            const fromcurrencyselect=document.getElementById('from-currency')
+            const tocurrencyselect=document.getElementById('to-currency')
+            const resultdisplay=document.getElementById('result')
+                .then(response=>response.json());
+                const cirencies = object.keys(data.rates);
+                curencies .forEach((currency) => {
+                    const option=document.createElement('option');
+                    option.value=currency;
+                    option.textContent=currency;
+                    fromcurrencyselect.appendchild(option);
+                    tocurrencyselect.appendChild(option.cloneNode(true));
+                })};
+                form.addEventListener('suybmit'(e)=>{
+                    e.preventDefault();
+                    const amount=amountInput.value;
+                    const fromcurrency=tocurrencyselect.value;
+                    const tocurrency=tocurrencyselect.value;
+                })
+                    .then(response=.response.json())
+                    .then (data=>
+                        const rate=data/rates;
+                        const result=(amount*rates) toFixed(2);
+                        resultdisplay.textContent='${amount} ${fromcurrency} =$(result) ${tocurrency}';
+
+                    )
+
+        
+    </script>
+    <div class="container">
+    <h1>Currency converter</h1>
+<form id="converter-form">
+<input type="number"id="amount" placeholder="Enter amount" required>
+<select id="from corrency"></select>
+<button type="submit">Convert</button>
+</form>
+<p id="result"></p></div>
+</body>
+</html>

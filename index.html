@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honda Meileng.kz Astana</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+header {
+    background: #191919;
+    padding: 20px 0;
+    border-bottom: 2px solid #e3262e;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #e3262e;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+nav a:hover {
+    color: #e3262e;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 17px;
+    font-weight: bold;
+}
+
+.primary {
+    background: #e3262e;
+    color: white;
+}
+
+.primary:hover {
+    background: #b91c24;
+}
+
+.hero {
+    min-height: 420px;
+    padding: 70px 0;
+    background:
+        linear-gradient(90deg, #111 20%, #111c 60%, #1118),
+        radial-gradient(circle at 80% 40%, #641b20, #111 65%);
+}
+
+.hero h1 {
+    font-size: clamp(36px, 6vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #e3262e;
+}
+
+.hero p {
+    color: #ccc;
+    font-size: 17px;
+    max-width: 600px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select, textarea {
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    padding: 13px;
+    border-radius: 7px;
+    width: 100%;
+    font: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 1px solid #e3262e;
+}
+
+.search input {
+    flex: 1;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.category {
+    background: #292929;
+    color: white;
+}
+
+.category.active,
+.category:hover {
+    background: #e3262e;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.product {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+    border-color: #e3262e;
+}
+
+.product-image {
+    height: 140px;
+    display: grid;
+    place-items: center;
+    font-size: 65px;
+    background: #292929;
+}
+
+.product-info {
+    padding: 16px;
+}
+
+.product-info h3 {
+    margin: 8px 0;
+}
+
+.product-info p {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.price {
+    color: #ff555b;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.product-info button {
+    width: 100%;
+    background: #e3262e;
+    color: white;
+}
+
+.product-info button:hover {
+    background: #b91c24;
+}
+
+.delivery {
+    background: #1b1b1b;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.delivery p {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.step {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    padding: 22px;
+    border-radius: 10px;
+}
+
+.step h3 {
+    margin-bottom: 10px;
+    color: #ff555b;
+}
+
+.step p {
+    color: #bbb;
+    line-height: 1.6;
+}
+
+.contact-form {
+    max-width: 650px;
+    display: grid;
+    gap: 12px;
+}
+
+footer {
+    padding: 25px 0;
+    text-align: center;
+    background: #080808;
+    color: #aaa;
+}
+
+.cart-list {
+    margin: 20px 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+}
+
+.cart-item button {
+    padding: 6px 10px;
+    background: #333;
+    color: white;
+}
+
+.cart-total {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#cart {
+    background: #1b1b1b;
+}
+
+.small-note {
+    color: #999;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+@media (max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: 92%;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    nav a {
+        margin: 4px;
+    }
+
+    .search {
+        flex-direction: column;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 50px 0;
+    }
+
+    .section {
+        padding: 40px 0;
+    }
+
+    .section h2 {
+        font-size: 27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">HONDA MEILENG</div>
+
+            <div>
+                <a href="#home">Главная</a>
+                <a href="#catalog">Каталог</a>
+                <a href="#delivery">Доставка</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+
+            <button class="primary"
+                    onclick="document.getElementById('cart').scrollIntoView({behavior:'smooth'})">
+                Корзина (<span id="cartCount">0</span>)
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+    <div class="container">
+        <h1>
+            Запчасти для Honda<br>
+            <span>в Астане</span>
+        </h1>
+
+        <p>
+            Honda Meileng.kz — магазин автомобильных запчастей.
+            Подберём нужную деталь и согласуем отправку на такси
+            по Астане.
+        </p>
+
+        <a href="#catalog">
+            <button class="primary">Перейти в каталог →</button>
+        </a>
+    </div>
+</section>
+
+<section class="section" id="catalog">
+    <div class="container">
+        <h2>Каталог автозапчастей</h2>
+
+        <div class="search">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Поиск запчастей..."
+                aria-label="Поиск запчастей">
+
+            <select id="modelSelect" aria-label="Модель автомобиля">
+                <option value="">Все модели</option>
+                <option value="Accord">Honda Accord</option>
+                <option value="Civic">Honda Civic</option>
+                <option value="CR-V">Honda CR-V</option>
+                <option value="Fit">Honda Fit</option>
+                <option value="Acura">Acura</option>
+            </select>
+
+            <button class="primary" onclick="renderProducts()">
+                Найти
+            </button>
+        </div>
+
+        <div class="categories">
+            <button class="category active" data-category="Все">Все</button>
+            <button class="category" data-category="Фильтры">Фильтры</button>
+            <button class="category" data-category="Тормоза">Тормоза</button>
+            <button class="category" data-category="Подвеска">Подвеска</button>
+            <button class="category" data-category="Двигатель">Двигатель</button>
+            <button class="category" data-category="Электрика">Электрика</button>
+        </div>
+
+        <div class="products" id="products"></div>
+
+        <p class="small-note">
+            Цены и товары представлены для демонстрации.
+            Уточняйте наличие и совместимость у менеджера.
+        </p>
+    </div>
+</section>
+
+<section class="section delivery" id="delivery">
+    <div class="container">
+        <h2>🚕 Доставка на такси по Астане</h2>
+
+        <p>
+            Выберите нужные запчасти, оформите заявку и согласуйте
+            с менеджером отправку на такси. Стоимость доставки
+            зависит от адреса и подтверждается отдельно.
+        </p>
+
+        <a href="#contacts">
+            <button class="primary">Заказать доставку</button>
+        </a>
+    </div>
+</section>
+
+<section class="section" id="how">
+    <div class="container">
+        <h2>Как заказать</h2>
+
+        <div class="steps">
+            <div class="step">
+                <h3>01. Выберите деталь</h3>
+                <p>Найдите нужную запчасть в каталоге.</p>
+            </div>
+
+            <div class="step">
+                <h3>02. Подтвердите заказ</h3>
+                <p>Уточните наличие, цену и совместимость.</p>
+            </div>
+
+            <div class="step">
+                <h3>03. Получите запчасть</h3>
+                <p>Согласуйте самовывоз или доставку на такси.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="cart">
+    <div class="container">
+        <h2>🛒 Ваша корзина</h2>
+
+        <div class="cart-list" id="cartItems">
+            Корзина пока пустая.
+        </div>
+
+        <div class="cart-total">
+            Итого: <span id="cartTotal">0 ₸</span>
+        </div>
+
+        <button class="primary" onclick="checkout()">
+            Оформить заказ через WhatsApp
+        </button>
+
+        <p class="small-note">
+            Заказ не оплачивается автоматически.
+            Менеджер подтвердит наличие, цену и доставку.
+        </p>
+    </div>
+</section>
+
+<section class="section" id="contacts">
+    <div class="container">
+        <h2>Подбор запчастей</h2>
+
+        <form class="contact-form" id="contactForm">
+            <input name="name" placeholder="Ваше имя" required>
+            <input name="phone" placeholder="Ваш телефон" required>
+            <input name="car" placeholder="Модель и год автомобиля" required>
+            <input name="vin" placeholder="VIN-код (если есть)">
+            <textarea name="details"
+                      placeholder="Какая запчасть нужна? Нужна ли доставка?"
+                      rows="4" required></textarea>
+
+            <button class="primary" type="submit">
+                Отправить заявку в WhatsApp
+            </button>
+        </form>
+    </div>
+</section>
+</main>
+
+<footer>
+    <div class="container">
+        © <span id="year"></span> Honda Meileng.kz Astana
+        <br>
+        Автозапчасти для Honda и Acura
+    </div>
+</footer>
+
+<script>
+// ЗАМЕНИТЕ номер на реальный номер WhatsApp магазина.
+// Формат: код страны и номер, только цифры.
+const WHATSAPP_NUMBER = "77000000000";
+
+const products = [
+    {
+        id: 1,
+        name: "Масляный фильтр",
+        category: "Фильтры",
+        model: "Accord Civic CR-V Fit",
+        price: 4500,
+        icon: "🛢️"
+    },
+    {
+        id: 2,
+        name: "Воздушный фильтр",
+        category: "Фильтры",
+        model: "Civic CR-V Fit",
+        price: 6500,
+        icon: "🧰"
+    },
+    {
+        id: 3,
+        name: "Тормозные колодки",
+        category: "Тормоза",
+        model: "Accord CR-V Civic",
+        price: 18000,
+        icon: "🛑"
+    },
+    {
+        id: 4,
+        name: "Тормозной диск",
+        category: "Тормоза",
+        model: "Civic Accord",
+        price: 26000,
+        icon: "⚙️"
+    },
+    {
+        id: 5,
+        name: "Амортизатор",
+        category: "Подвеска",
+        model: "CR-V Accord",
+        price: 32000,
+        icon: "🔩"
+    },
+    {
+        id: 6,
+        name: "Стойка стабилизатора",
+        category: "Подвеска",
+        model: "Civic Fit CR-V",
+        price: 8500,
+        icon: "🔧"
+    },
+    {
+        id: 7,
+        name: "Свечи зажигания",
+        category: "Двигатель",
+        model: "Accord Civic CR-V Acura",
+        price: 5000,
+        icon: "⚡"
+    },
+    {
+        id: 8,
+        name: "Ремень приводной",
+        category: "Двигатель",
+        model: "Accord CR-V",
+        price: 9000,
+        icon: "〰️"
+    },
+    {
+        id: 9,
+        name: "Катушка зажигания",
+        category: "Электрика",
+        model: "Civic Accord Acura",
+        price: 22000,
+        icon: "🔌"
+    },
+    {
+        id: 10,
+        name: "Лампа фары",
+        category: "Электрика",
+        model: "Accord Civic CR-V Acura",
+        price: 3500,
+        icon: "💡"
+    }
+];
+
+let category = "Все";
+let cart = [];
+
+function money(value) {
+    return new Intl.NumberFormat("ru-KZ").format(value) + " ₸";
+}
+
+function renderProducts() {
+    const query = document.getElementById("searchInput")
+        .value.toLowerCase().trim();
+
+    const model = document.getElementById("modelSelect").value;
+
+    const filtered = products.filter(product => {
+        const matchesText =
+            (product.name + " " + product.category + " " + product.model)
+            .toLowerCase().includes(query);
+
+        const matchesCategory =
+            category === "Все" || product.category === category;
+
+        const matchesModel =
+            !model || product.model.includes(model);
+
+        return matchesText && matchesCategory && matchesModel;
+    });
+
+    const container = document.getElementById("products");
+
+    if (filtered.length === 0) {
+        container.innerHTML =
+            "<p>Ничего не найдено. Попробуйте другой запрос.</p>";
+        return;
+    }
+
+    container.innerHTML = filtered.map(product => `
+        <article class="product">
+            <div class="product-image">${product.icon}</div>
+
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p>${product.category}</p>
+                <p>Модели: ${product.model}</p>
+
+                <div class="price">${money(product.price)}</div>
+
+                <button onclick="addToCart(${product.id})">
+                    + В корзину
+                </button>
+            </div>
+        </article>
+    `).join("");
+}
+
+function addToCart(id) {
+    const item = cart.find(product => product.id === id);
+
+    if (item) {
+        item.qty++;
+    } else {
+        cart.push({ id, qty: 1 });
+    }
+
+    updateCart();
+}
+
+function updateCart() {
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+
+    document.getElementById("cartCount").textContent = count;
+
+    const total = cart.reduce((sum, item) => {
+        const product = products.find(p => p.id === item.id);
+        return sum + product.price * item.qty;
+    }, 0);
+
+    document.getElementById("cartTotal").textContent = money(total);
+
+    const container = document.getElementById("cartItems");
+
+    if (cart.length === 0) {
+        container.textContent = "Корзина пока пустая.";
+        return;
+    }
+
+    container.innerHTML = cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+
+        return `
+            <div class="cart-item">
+                <div>
+                    <strong>${product.name}</strong>
+                    <p>${money(product.price)} × ${item.qty}</p>
+                </div>
+
+                <div>
+                    <button onclick="changeQty(${product.id}, -1)">−</button>
+                    ${item.qty}
+                    <button onclick="changeQty(${product.id}, 1)">+</button>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function changeQty(id, amount) {
+    const item = cart.find(product => product.id === id);
+
+    if (!item) return;
+
+    item.qty += amount;
+
+    if (item.qty <= 0) {
+        cart = cart.filter(product => product.id !== id);
+    }
+
+    updateCart();
+}
+
+function sendWhatsApp(message) {
+    if (WHATSAPP_NUMBER === "77000000000") {
+        alert("Сначала укажите настоящий номер WhatsApp магазина в коде.");
+        return;
+    }
+
+    const url = "https://wa.me/" + WHATSAPP_NUMBER
+        + "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("Сначала добавьте товары в корзину.");
+        return;
+    }
+
+    const lines = cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+
+        return `${product.name} × ${item.qty} — ${
+            money(product.price * item.qty)
+        }`;
+    }).join("\n");
+
+    const total = cart.reduce((sum, item) => {
+        return sum + products.find(p => p.id === item.id).price * item.qty;
+    }, 0);
+
+    const message =
+        "Здравствуйте! Хочу заказать запчасти Honda Meileng.kz.\n\n"
+        + lines
+        + "\n\nИтого: " + money(total)
+        + "\nДоставка: такси по Астане"
+        + "\nПрошу подтвердить наличие и стоимость доставки.";
+
+    sendWhatsApp(message);
+}
+
+document.querySelectorAll(".category").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".category").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        category = button.dataset.category;
+        renderProducts();
+    });
+});
+
+document.getElementById("searchInput")
+    .addEventListener("input", renderProducts);
+
+document.getElementById("modelSelect")
+    .addEventListener("change", renderProducts);
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    const message =
+        "Здравствуйте! Нужна запчасть Honda.\n"
+        + "Имя: " + data.get("name") + "\n"
+        + "Телефон: " + data.get("phone") + "\n"
+        + "Автомобиль: " + data.get("car") + "\n"
+        + "VIN: " + (data.get("vin") || "Не указан") + "\n"
+        + "Запрос: " + data.get("details");
+
+    sendWhatsApp(message);
+});
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
